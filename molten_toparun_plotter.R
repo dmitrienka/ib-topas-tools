@@ -10,6 +10,8 @@ option_list <- list(
                 help="Width of the output file, [default %default]"),
     make_option(c("-H", "--height"), type="double",default=10,
                 help="Height of the output file, [default %default]"),
+    make_option(c("-l", "--linetype"), action="store_true", default=FALSE,
+                help="Use different linetypes (for <= 12 datasets only!), [default %default]"),
     make_option(c("-f", "--fill"), action="store_true", default=FALSE,
                 help="Fill density plot, [default %default]")
     )
@@ -35,6 +37,9 @@ p <- ggplot(data=toparun, aes(x=(Upper-Lower)/2, color = Name, group=Name)) +
 
 ## Modify if fill=TRUE
 if (opt$fill) {p <- p + aes(fill = Name)}
+
+##Modify if linetype=TRUE
+if(opt$linetype) {p <- p + aes(linetype=Name)}
 
 ## Plot
 name = sub("[.].{2,3}","",arguments$args)
